@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CellBehavior : MonoBehaviour {
+public class CellBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
