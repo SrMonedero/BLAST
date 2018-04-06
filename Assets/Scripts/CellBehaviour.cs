@@ -89,6 +89,33 @@ public class CellBehaviour : MonoBehaviour {
             case State.TOUCHED:
                 if (nearMinesCount > 0) {
                     material.color = Color.yellow;
+                    GameObject number;
+                    switch(nearMinesCount) {
+                        case 1:
+                            number = Instantiate(Resources.Load("Prefabs/one"), gameObject.transform.position, Quaternion.identity) as GameObject;
+                            break;
+                        case 2:
+                            number = Instantiate(Resources.Load("Prefabs/two"), gameObject.transform.position, Quaternion.identity) as GameObject;
+                            break;
+                        case 3:
+                            number = Instantiate(Resources.Load("Prefabs/three"), gameObject.transform.position, Quaternion.identity) as GameObject;
+                            break;
+                        case 4:
+                            number = Instantiate(Resources.Load("Prefabs/four"), gameObject.transform.position, Quaternion.identity) as GameObject;
+                            break;
+                        case 5:
+                            number = Instantiate(Resources.Load("Prefabs/five"), gameObject.transform.position, Quaternion.identity) as GameObject;
+                            break;
+                        case 6:
+                            number = Instantiate(Resources.Load("Prefabs/six"), gameObject.transform.position, Quaternion.identity) as GameObject;
+                            break;
+                        case 7:
+                            number = Instantiate(Resources.Load("Prefabs/seven"), gameObject.transform.position, Quaternion.identity) as GameObject;
+                            break;
+                        case 8:
+                            number = Instantiate(Resources.Load("Prefabs/eight"), gameObject.transform.position, Quaternion.identity) as GameObject;
+                            break;
+                    }
                 } else {
                     material.color = Color.gray;
                     board.OnSafeCellTouched(positionOnBard[0], positionOnBard[1]);
