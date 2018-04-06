@@ -8,14 +8,16 @@ public class CellBehaviour : MonoBehaviour {
     }
 
     private State state;
+    private Material material;
 
 	// Use this for initialization
 	void Start () {
         state = State.UNTOUCHED;
+        material = GetComponent<Renderer>().material;
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void OnMouseOver () {
         if (Input.GetMouseButtonDown(0))
         {
             UpdateLeftClick();
@@ -53,13 +55,13 @@ public class CellBehaviour : MonoBehaviour {
         switch (state)
         {
             case State.UNTOUCHED:
-                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                material.color = Color.white;
                 break;
             case State.TOUCHED:
-                gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+                material.color = Color.gray;
                 break;
             case State.FLAGGED:
-                gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+                material.color = Color.blue;
                 break;
         }
     }

@@ -6,6 +6,7 @@ public class BoardBehaviour : MonoBehaviour {
     public float separation;
     public int columns;
     public int rows;
+    public GameObject cell;
     private GameObject[,] cells;
 
 	// Use this for initialization
@@ -21,7 +22,7 @@ public class BoardBehaviour : MonoBehaviour {
                 int rowDistance = j - midRow;
                 float xPos = columnDistance + columnDistance * separation + 0.5f + separation/2;
                 float yPos = rowDistance + rowDistance * separation + 0.5f + separation / 2;
-                cells[i,j] = Instantiate(Resources.Load("Prefabs/Cell"), new Vector3(xPos, yPos, 0), Quaternion.identity) as GameObject;
+                cells[i,j] = Instantiate(cell, new Vector3(xPos, yPos, 0), Quaternion.identity) as GameObject;
             }
         }
     }
