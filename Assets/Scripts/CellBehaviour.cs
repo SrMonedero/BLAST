@@ -12,6 +12,7 @@ public class CellBehaviour : MonoBehaviour {
     public BoardBehaviour board;
     private bool hasBomb = false;
     private int[] positionOnBard = new int[2];
+    public int nearMinesCount;
 
 	// Use this for initialization
 	void Start () {
@@ -83,7 +84,11 @@ public class CellBehaviour : MonoBehaviour {
                 material.color = Color.white;
                 break;
             case State.TOUCHED:
-                material.color = Color.gray;
+                if (nearMinesCount > 0) {
+                    material.color = Color.yellow;
+                } else {
+                    material.color = Color.gray;
+                }
                 break;
             case State.FLAGGED:
                 material.color = Color.blue;

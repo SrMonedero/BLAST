@@ -8,7 +8,7 @@ public class BoardBehaviour : MonoBehaviour {
     public int rows;
     public GameObject cell;
     public GameObject[,] cells;
-    public int bombCount;
+    public int minesCount;
 
 	// Use this for initialization
 	void Start ()
@@ -27,14 +27,18 @@ public class BoardBehaviour : MonoBehaviour {
                 cells[i, j].GetComponent<CellBehaviour>().board = this; 
             }
         }
-        for (int i = 0; i < bombCount; i++) {
+        for (int i = 0; i < minesCount; i++) {
             int randColumn = (int) Mathf.Round(Random.Range(0, columns));
             int randRow = (int) Mathf.Round(Random.Range(0, rows));
             if (cells[randColumn, randRow].GetComponent<CellBehaviour>().GetHasBomb()) {
                 i--;
             } else {
                 cells[randColumn, randRow].GetComponent<CellBehaviour>().SetHasBomb(true);
-                Debug.Log(randColumn + " " + randRow);
+                for (int j = Mathf.Max(randColumn - 1, 0); j < Mathf.Min(randColumn + 2, columns) ; j++) {
+                    for (int k = Mathf.Max(randRow - 1, 0); k < Mathf.Min(randRow + 2, rows); k++) {
+                        cells[j, k].GetComponent<CellBehaviour>().nearMinesCount++;
+                    }
+                }
             }
         }
     }
@@ -43,15 +47,8 @@ public class BoardBehaviour : MonoBehaviour {
         for (int i = 0; i < columns; i++) {
             for (int j = 0; j < rows; j++)
             {
-                if (cells[i,j].GetComponent<CellBehaviour>().GetHasBomb()) {
-                    cells[i,j].GetComponent<CellBehaviour>().Touch();
-                }
+                cells[i,j].GetComponent<CellBehaviour>().Touch();
             }
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
