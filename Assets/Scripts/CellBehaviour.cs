@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class CellBehaviour : MonoBehaviour {
     private enum State {
-        UNTOUCHED, TOUCHED, FLAGGED
+        UNTOUCHED, TOUCHED, FLAGGED, EXPLODED
     }
 
     private State state;
     private Material material;
+    private GameObject board;
+    private bool hasBomb;
 
 	// Use this for initialization
 	void Start () {
         state = State.UNTOUCHED;
         material = GetComponent<Renderer>().material;
+        hasBomb = false;
     }
 	
 	// Update is called once per frame
@@ -28,11 +31,21 @@ public class CellBehaviour : MonoBehaviour {
         }
     }
 
+    public void setHasBomb(bool hasBomb) {
+        this.hasBomb = hasBomb;
+    }
+
     private void UpdateLeftClick() {
         switch (state)
         {
             case State.UNTOUCHED:
-                state = State.TOUCHED;
+                if (hasBomb)
+                {
+                    state = State.EXPLODED;
+                }
+                else {
+                    state = State.TOUCHED;
+                }
                 OnStateUpdated();
                 break;
         }
@@ -62,6 +75,9 @@ public class CellBehaviour : MonoBehaviour {
                 break;
             case State.FLAGGED:
                 material.color = Color.blue;
+                break;
+            case State.EXPLODED:
+                material.color = Color.red;
                 break;
         }
     }
