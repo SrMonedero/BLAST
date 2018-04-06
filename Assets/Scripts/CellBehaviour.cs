@@ -9,8 +9,9 @@ public class CellBehaviour : MonoBehaviour {
 
     private State state;
     private Material material;
-    private GameObject board;
+    public BoardBehaviour board;
     private bool hasBomb = false;
+    private int[] positionOnBard = new int[2];
 
 	// Use this for initialization
 	void Start () {
@@ -37,21 +38,12 @@ public class CellBehaviour : MonoBehaviour {
         return hasBomb;
     }
 
+    public int[] GetPositionOnBoard() {
+        return positionOnBard;
+    }
+
     private void UpdateLeftClick() {
-        Debug.Log(hasBomb);
-        switch (state)
-        {
-            case State.UNTOUCHED:
-                if (hasBomb)
-                {
-                    state = State.EXPLODED;
-                }
-                else {
-                    state = State.TOUCHED;
-                }
-                OnStateUpdated();
-                break;
-        }
+        Touch();
     }
 
     private void UpdateRightClick() {
@@ -62,6 +54,23 @@ public class CellBehaviour : MonoBehaviour {
                 break;
             case State.FLAGGED:
                 state = State.UNTOUCHED;
+                OnStateUpdated();
+                break;
+        }
+    }
+
+    public void Touch() {
+        switch (state)
+        {
+            case State.UNTOUCHED:
+                if (hasBomb)
+                {
+                    state = State.EXPLODED;
+                    board.OnMineExploded();
+                }
+                else {
+                    state = State.TOUCHED;
+                }
                 OnStateUpdated();
                 break;
         }

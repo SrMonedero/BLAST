@@ -7,7 +7,7 @@ public class BoardBehaviour : MonoBehaviour {
     public int columns;
     public int rows;
     public GameObject cell;
-    private GameObject[,] cells;
+    public GameObject[,] cells;
     public int bombCount;
 
 	// Use this for initialization
@@ -24,6 +24,7 @@ public class BoardBehaviour : MonoBehaviour {
                 float xPos = columnDistance + columnDistance * separation + 0.5f + separation/2;
                 float yPos = rowDistance + rowDistance * separation + 0.5f + separation / 2;
                 cells[i,j] = Instantiate(cell, new Vector3(xPos, yPos, 0), Quaternion.identity) as GameObject;
+                cells[i, j].GetComponent<CellBehaviour>().board = this; 
             }
         }
         for (int i = 0; i < bombCount; i++) {
@@ -34,6 +35,17 @@ public class BoardBehaviour : MonoBehaviour {
             } else {
                 cells[randColumn, randRow].GetComponent<CellBehaviour>().SetHasBomb(true);
                 Debug.Log(randColumn + " " + randRow);
+            }
+        }
+    }
+
+    public void OnMineExploded() {
+        for (int i = 0; i < columns; i++) {
+            for (int j = 0; j < rows; j++)
+            {
+                if (cells[i,j].GetComponent<CellBehaviour>().GetHasBomb()) {
+                    cells[i,j].GetComponent<CellBehaviour>().Touch();
+                }
             }
         }
     }
