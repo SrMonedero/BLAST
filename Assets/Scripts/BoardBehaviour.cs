@@ -24,6 +24,7 @@ public class BoardBehaviour : MonoBehaviour {
                 float xPos = columnDistance + columnDistance * separation + 0.5f + separation/2;
                 float yPos = rowDistance + rowDistance * separation + 0.5f + separation / 2;
                 cells[i,j] = Instantiate(cell, new Vector3(xPos, yPos, 0), Quaternion.identity) as GameObject;
+                cells[i,j].GetComponent<CellBehaviour>().SetPositionOnBoard(new int[2]{i, j});
                 cells[i, j].GetComponent<CellBehaviour>().board = this; 
             }
         }
@@ -48,6 +49,14 @@ public class BoardBehaviour : MonoBehaviour {
             for (int j = 0; j < rows; j++)
             {
                 cells[i,j].GetComponent<CellBehaviour>().Touch();
+            }
+        }
+    }
+
+    public void OnSafeCellTouched(int column, int row) {
+        for (int j = Mathf.Max(column - 1, 0); j < Mathf.Min(column + 2, columns) ; j++) {
+            for (int k = Mathf.Max(row - 1, 0); k < Mathf.Min(row + 2, rows); k++) {
+                cells[j, k].GetComponent<CellBehaviour>().Touch();
             }
         }
     }

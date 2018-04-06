@@ -42,6 +42,9 @@ public class CellBehaviour : MonoBehaviour {
     public int[] GetPositionOnBoard() {
         return positionOnBard;
     }
+    public void SetPositionOnBoard(int[] positionOnBard) {
+        this.positionOnBard = positionOnBard;
+    }
 
     private void UpdateLeftClick() {
         Touch();
@@ -88,6 +91,7 @@ public class CellBehaviour : MonoBehaviour {
                     material.color = Color.yellow;
                 } else {
                     material.color = Color.gray;
+                    board.OnSafeCellTouched(positionOnBard[0], positionOnBard[1]);
                 }
                 break;
             case State.FLAGGED:
