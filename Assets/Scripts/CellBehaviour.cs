@@ -10,16 +10,14 @@ public class CellBehaviour : MonoBehaviour {
     private State state;
     private Material material;
     private GameObject board;
-    private bool hasBomb;
+    private bool hasBomb = false;
 
 	// Use this for initialization
 	void Start () {
         state = State.UNTOUCHED;
         material = GetComponent<Renderer>().material;
-        hasBomb = false;
     }
 	
-	// Update is called once per frame
 	void OnMouseOver () {
         if (Input.GetMouseButtonDown(0))
         {
@@ -31,11 +29,16 @@ public class CellBehaviour : MonoBehaviour {
         }
     }
 
-    public void setHasBomb(bool hasBomb) {
+    public void SetHasBomb(bool hasBomb) {
         this.hasBomb = hasBomb;
     }
 
+    public bool GetHasBomb() {
+        return hasBomb;
+    }
+
     private void UpdateLeftClick() {
+        Debug.Log(hasBomb);
         switch (state)
         {
             case State.UNTOUCHED:

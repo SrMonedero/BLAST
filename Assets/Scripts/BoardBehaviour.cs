@@ -8,6 +8,7 @@ public class BoardBehaviour : MonoBehaviour {
     public int rows;
     public GameObject cell;
     private GameObject[,] cells;
+    public int bombCount;
 
 	// Use this for initialization
 	void Start ()
@@ -23,6 +24,16 @@ public class BoardBehaviour : MonoBehaviour {
                 float xPos = columnDistance + columnDistance * separation + 0.5f + separation/2;
                 float yPos = rowDistance + rowDistance * separation + 0.5f + separation / 2;
                 cells[i,j] = Instantiate(cell, new Vector3(xPos, yPos, 0), Quaternion.identity) as GameObject;
+            }
+        }
+        for (int i = 0; i < bombCount; i++) {
+            int randColumn = (int) Mathf.Round(Random.Range(0, columns));
+            int randRow = (int) Mathf.Round(Random.Range(0, rows));
+            if (cells[randColumn, randRow].GetComponent<CellBehaviour>().GetHasBomb()) {
+                i--;
+            } else {
+                cells[randColumn, randRow].GetComponent<CellBehaviour>().SetHasBomb(true);
+                Debug.Log(randColumn + " " + randRow);
             }
         }
     }
