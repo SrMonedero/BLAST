@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   separation: 0.1
-  columns: 8
-  rows: 8
+  columns: 10
+  rows: 10
   cell: {fileID: 1980634824458976, guid: b89c16a19fae5ae4186b5ebd5034592e, type: 2}
-  minesCount: 10
+  minesCount: 14
